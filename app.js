@@ -18,7 +18,7 @@ app.use(helmet());
 
 app.use('/api/auth', require('./routes/auth.route'));
 app.use('/api/users', validateAuthUser, require('./routes/user.route'));
-app.use('/api/messages', validateAuthUser, require('./routes/message.route'));
-app.use('/api/app', require('./routes/client.route'));
+app.use('/api/recipes', validateAuthUser, require('./routes/recipe.route'));
+app.use('/api/ingredients', validateAuthUser, require('./routes/ingredient.route'));
 
 module.exports = app;

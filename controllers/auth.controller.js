@@ -11,7 +11,7 @@ const register = async (req, res) => {
             username: joi.string().min(3).max(30).required(),
             email: joi.string().email().required(),
             password: joi.string().pattern(
-                new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+                new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$")
             ).required().messages({
                 "string.pattern.base": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
             }),
@@ -35,7 +35,7 @@ const register = async (req, res) => {
         return sendResponse(res, 200, 'Registration successful', responseData);
     } catch (error) {
         console.error(error);
-        return sendResponse(res, 400, e.message || "Registeration failed.",
+        return sendResponse(res, 400, error.message || "Registeration failed.",
             {
                 token: "",
                 data: {
@@ -87,6 +87,16 @@ const login = async (req, res) => {
     }
 };
 
+const generateAuthToken = async (req, res) => {
+    try {
+        const responseData = await authService.generateAuthToken();
+
+        return sendResponse(res, 200, 'Token generated', responseData);
+    } catch (error) {
+        sendResponse(res, 400, error.message, null);
+    }
+}
+
 const logout = async (req, res) => {
     try {
         const body = req.body;
@@ -110,4 +120,4 @@ const logout = async (req, res) => {
 }
 
 
-module.exports = { login, logout, register };
+module.exports = { login, logout, register, generateAuthToken };

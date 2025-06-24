@@ -48,6 +48,25 @@ const register = async (body) => {
     }
 };
 
+const generateAuthToken = async (body) => {
+    try {
+        const accessToken = generateToken({
+            userId: "USRe72fd23e96b0405b",
+            email: "eaint@gmail.com",
+        }, '7d');
+
+        await setCache("USRe72fd23e96b0405b", {
+            loggedAt: getCurrentFormattedDateTime(),
+        });
+
+        return {
+            token: accessToken,
+        };
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
 const login = async (body) => {
     try {
         const user = await userModel.findOne({ email: body.email.toLowerCase() });
@@ -115,5 +134,6 @@ const logout = async (body) => {
 module.exports = {
     login,
     logout,
-    register
+    register,
+    generateAuthToken
 };
