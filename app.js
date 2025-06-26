@@ -20,5 +20,7 @@ app.use('/api/auth', require('./routes/auth.route'));
 app.use('/api/users', validateAuthUser, require('./routes/user.route'));
 app.use('/api/recipes', validateAuthUser, require('./routes/recipe.route'));
 app.use('/api/ingredients', validateAuthUser, require('./routes/ingredient.route'));
+app.use('/api/categories', validateAuthUser, require('./routes/category.route'));
+app.use('/api/app', validateAuthUser, require('./routes/client.route'));
 
 module.exports = app;
