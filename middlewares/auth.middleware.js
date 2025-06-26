@@ -16,9 +16,9 @@ exports.validateAuthUser = async (req, res, next) => {
     console.log("decoded", decodedJWT);
     const isLogged = await getCache(decodedJWT.userId);
     console.log(isLogged);
-    if (!isLogged) {
-      return sendResponse(res, 800, 'User is not authenticated.', null);
-    }
+    // if (!isLogged) {
+    //   return sendResponse(res, 800, 'User is not authenticated.', null);
+    // }
 
     req.user = decodedJWT;
 
